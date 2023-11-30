@@ -1,4 +1,5 @@
 import { Flex, Image, useColorMode } from '@chakra-ui/react';
+import LogoutButton from './LogoutButton';
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -12,6 +13,7 @@ const Header = () => {
         src={colorMode === "dark" ? "/light-logo.svg" : "/dark-logo.svg"}
         onClick={toggleColorMode}
       />
+      <LogoutButton />
     </Flex>
   )
 }

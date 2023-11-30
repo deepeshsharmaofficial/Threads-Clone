@@ -12,7 +12,7 @@ router.post("/signup", signupUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/follow/:id", protectRoutes, followUnFollowUser); // Toggle state (follow / unfollow)
-router.post("/update/:id", protectRoutes, updateUser);
+router.put("/update/:id", protectRoutes, updateUser);
 router.get("/profile/:username", getUserProfile);
 
 export default router;

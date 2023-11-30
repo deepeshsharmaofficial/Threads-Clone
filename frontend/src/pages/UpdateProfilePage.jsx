@@ -26,6 +26,8 @@ export default function UpdateProfilePage() {
 
   const [user, setUser] = useRecoilState(userAtom);
   console.log('user: ', user);
+  const [updating, setUpdating] = useState(false);
+
 
   const [inputs, setInputs] = useState({
     name: user.name,
@@ -43,6 +45,7 @@ export default function UpdateProfilePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setUpdating(true);
     try {
       console.log(inputs);
       const res = await fetch(`/api/users/update/${user._id}`, {
@@ -69,6 +72,8 @@ export default function UpdateProfilePage() {
 
     } catch (error) {
       showToast('Error', error, 'error');
+    } finally {
+      setUpdating(false);
     }
   }
 
@@ -176,6 +181,7 @@ export default function UpdateProfilePage() {
                 bg: "blue.500",
               }}
               type="submit"
+              isLoading={updating}
             >
               Submit
             </Button>

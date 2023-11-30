@@ -175,7 +175,6 @@ const updateUser = async (req, res) => {
     res.status(500).json({error: err.message});
     console.log("Error in updateUser: ", err.message);
   }
-
 }
 
 const getUserProfile =  async (req, res) => {

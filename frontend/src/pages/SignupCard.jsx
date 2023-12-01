@@ -34,10 +34,11 @@ export default function SignupCard({toggle, setToggle}) {
 
   const showToast = useShowToast();
   const setUser = useSetRecoilState(userAtom);
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
     // const inputs = {name, username, email, password};
-    
+    setLoading(true);
     try {
       const res = await fetch("/api/users/signup", {
         method: "POST",
@@ -60,6 +61,8 @@ export default function SignupCard({toggle, setToggle}) {
     } catch (err) {
       showToast("Error", err, "error")
       console.log(err);
+    } finally {
+      setLoading(false);
     }
 
   }
@@ -140,7 +143,6 @@ export default function SignupCard({toggle, setToggle}) {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
-                loadingText="Submitting"
                 size="lg"
                 bg={useColorModeValue('gray.600', 'gray.700')}
                 color={"white"}
@@ -148,6 +150,7 @@ export default function SignupCard({toggle, setToggle}) {
                   bg: useColorModeValue('gray.700', 'gray.800'),
                 }}
                 onClick={handleSignup}
+                isLoading={loading}
               >
                 Sign up
               </Button>

@@ -30,8 +30,11 @@ export default function LoginCard({toggle, setToggle}) {
   const showToast = useShowToast();
   
   const setUser = useSetRecoilState(userAtom);
+  const [loading, setLoading] = useState(false);
+
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       const res = await fetch("/api/users/login", {
         method: "POST",
@@ -55,6 +58,8 @@ export default function LoginCard({toggle, setToggle}) {
     } catch (err) {
       showToast("Error", err, "error")
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -104,7 +109,6 @@ export default function LoginCard({toggle, setToggle}) {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
-                loadingText="Submitting"
                 size="lg"
                 bg={useColorModeValue('gray.600', 'gray.700')}
                 color={"white"}
@@ -112,6 +116,7 @@ export default function LoginCard({toggle, setToggle}) {
                   bg: useColorModeValue('gray.700', 'gray.800'),
                 }}
                 onClick={handleLogin}
+                isLoading={loading}
               >
                 Login
               </Button>
